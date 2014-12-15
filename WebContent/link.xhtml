@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+
+	<div class="link">
+		<div class="voteLink">
+			<h:form>
+				<h:commandButton value="+">
+					<f:ajax event="click" listener="#{l.increment()}" render="lcount" />
+				</h:commandButton>
+				<br />
+				<h:outputText id="lcount" value="#{l.count}" />
+				<br />
+				<h:commandButton value="-">
+					<f:ajax event="click" listener="#{l.decrement()}" render="lcount" />
+				</h:commandButton>
+			</h:form>
+		</div>
+
+		<div class="showLink">
+			<h:form id="showlink">
+				<a href="#{l.url}">#{l.title}</a>
+				<h:outputText value="#{redditBean.getString(5)}: " />
+				<h:outputText value="#{l.title}" />
+				<br />
+				<h:outputText value="URL: " />
+				<h:outputText value="#{l.url}" />
+				<br />
+				<h:outputText value="#{redditBean.getString(6)} #{l.date} #{redditBean.getString(7)} #{l.user}" />
+				<br />
+				<h:commandLink>
+					<h:outputText id="linkcommentcounter" value="#{l.commentcount} comments" />
+					<f:ajax event="click" listener="#{l.changeShowcomments}"
+						render=":outerloop:comments"></f:ajax>
+				</h:commandLink>
+				
+			</h:form>
+		</div>
+	</div>
+
+</body>
+</html>

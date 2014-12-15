@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+     <validator>
+        <validator-id>passwordValidator</validator-id>
+        <validator-class>redditFinal.PasswordValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>usernameValidator</validator-id>
+        <validator-class>redditFinal.UsernameValidator</validator-class>
+    </validator>
+    
+	<managed-bean>
+		<managed-bean-name>linkBean</managed-bean-name>
+		<managed-bean-class>redditFinal.linkBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>redditFinal.loginBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>redditBean</managed-bean-name>
+		<managed-bean-class>redditFinal.redditBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>commentBean</managed-bean-name>
+		<managed-bean-class>redditFinal.commentBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+</faces-config>

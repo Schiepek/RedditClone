@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+<title>Insert title here</title>
+</head>
+<body>
+	<ui:composition>
+		<h:panelGroup id="header" layout="block" class="header">
+			<div class="headerTitle">Reddit Clone</div>
+			<h:form>
+				<h:panelGroup layout="block" class="submitButton"
+					rendered="#{loginBean.loggedIn}">
+					<h:commandButton value="Submit comment" action="#{redditBean.changeSubmitLink}"/>
+				</h:panelGroup>
+				<h:panelGroup layout="block" class="loginForm"
+					rendered="#{not loginBean.loggedIn}">
+					<h:inputText value="#{loginBean.username}"
+						p:placeholder="#{redditBean.getString(3)}"></h:inputText>
+					<h:inputSecret value="#{loginBean.password}"
+						p:placeholder="#{redditBean.getString(4)}"></h:inputSecret>
+					<h:commandButton value="#{redditBean.getString(1)}"  action="#{loginBean.doLogin}" class="button orange" style="width: 130px"/>
+					<h:commandButton value="#{redditBean.getString(2)}" class="button orange" style="width: 130px" action="#{redditBean.doShowRegister}"/>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" class="loggedInfo"
+					rendered="#{loginBean.loggedIn}">
+					<h:outputText value="Hi #{loginBean.username}" style="color:white"></h:outputText>
+					<h:commandButton value="Logout" style="width: 90px">
+						<f:ajax event="click" execute="@form"
+							listener="#{loginBean.doLogout}" render="@form" />
+					</h:commandButton>
+				</h:panelGroup>
+			</h:form>
+		</h:panelGroup>
+	</ui:composition>
+</body>
+</html>

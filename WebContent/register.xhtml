@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+<title>Register</title>
+</head>
+
+<body>
+	<ui:composition>
+	<h:panelGroup layout="block" id="register" styleClass="register">
+	<h:panelGroup layout="block" rendered="#{redditBean.showRegister}">
+			<div class="registerTitle">
+				<h1>Create a new User-Account</h1>
+				<h2>You only need a username and a password</h2>
+			</div>
+			<div class="registerForm">
+				<h:form>
+					<h:inputText id="username" value="#{loginBean.username}" binding="#{username}" required="true" p:placeholder="Username">
+						<f:validator validatorId="usernameValidator" />
+					</h:inputText><br/>
+					<h:inputSecret id="password" value="#{loginBean.password}" required="true" p:placeholder="Password">
+						<f:validator validatorId="passwordValidator" />
+           				<f:attribute name="confirm" value="#{confirm}" />
+					</h:inputSecret><br/>
+					<h:inputSecret id="confirm" binding="#{confirm}" required="true" p:placeholder="Repeat Password"></h:inputSecret><br/>
+					<h:commandButton value="Register" class="button orange">
+						<f:ajax event="click" execute="@form" listener="#{loginBean.doRegister}" render="@form" />
+						<f:ajax event="click" listener="#{redditBean.hideRegister()}" render="@form :header :register" />
+					</h:commandButton>
+					<h:commandButton value="Close" class="button orange">
+						<f:ajax event="click" listener="#{redditBean.hideRegister()}" render="@form :register" />
+					</h:commandButton>
+				</h:form>
+			</div>
+	
+	</h:panelGroup>
+	</h:panelGroup>
+	</ui:composition>
+
+</body>
+</html>

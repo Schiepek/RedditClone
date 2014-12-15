@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+
+	<h:panelGroup id="submitlink">
+	<h:form rendered="#{redditBean.submitlink and loginBean.loggedIn}">
+	<div class="showSubmitLink">
+		<div class="submitLink">
+		<div class="submitLinkTitle">
+			<h1>Submit a new Link</h1>
+			<h2>The community is waiting for it!</h2>
+		</div>
+		<div class="submitLinkForm">
+			<h:form>
+				<h:inputText value="#{linkBean.title}"  p:placeholder="Title" size="60" maxlength="100"></h:inputText><br/>
+				<h:inputText value="#{linkBean.url}" p:placeholder="URL" size="60" maxlength="100"></h:inputText>	<br/>		
+				<h:commandButton value="Submit new Link" class="button green" action="#{redditBean.addLink(linkBean.title,linkBean.url,loginBean.username)}">
+				</h:commandButton>
+			</h:form>
+			<h:commandButton value="cancel">
+				<f:ajax event="click" listener="#{redditBean.changeSubmitLink}" render=":submitlink" />
+			</h:commandButton>
+		</div>
+	</div>
+	</div>
+	</h:form>	
+	</h:panelGroup>
+
+</body>
+</html>

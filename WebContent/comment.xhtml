@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:k="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+
+	<h:panelGroup layout="block" id="comments">
+	<h:panelGroup layout="block" id="scomments" rendered="#{l.showcomments}">
+				
+		<h:form id="addcomment" rendered="#{loginBean.loggedIn}">
+			<div class="addComment">
+				<h:outputText value="#{l.commentcount} comments"></h:outputText><br/>
+				<h:inputTextarea id="comment" value="#{commentBean.comment}" k:placeholder="hey #{loginBean.username} write a comment here" style="width: 700px"></h:inputTextarea><br/>
+				<h:commandButton value="post comment" style="width: 120px" >
+					<f:ajax event="click" execute="comment" listener="#{l.addComment(commentBean.comment,loginBean.username)}" render=":outerloop:comments :outerloop:showlink:linkcommentcounter"></f:ajax>	
+				</h:commandButton>	
+			</div>
+		</h:form>				
+			
+		<h:form id="showcom">	
+		<div class="showComments">
+			<ul>				
+			<ui:repeat id="innerloop" value="#{l.commentlist}" var="c">					
+			
+				<div class="voteComment">				
+					<h:commandButton value="+">
+						<f:ajax event="click" listener="#{c.increment()}" render="ccount" />
+					</h:commandButton><br/>
+					<h:outputText id="ccount" value="#{c.count}"/><br/>
+					<h:commandButton value="-">
+						<f:ajax event="click" listener="#{c.decrement()}" render="ccount" />
+					</h:commandButton>				
+				</div>	
+					
+				<div class="showComment">
+					<h:outputText value="Comment: "/>
+					<h:outputText value="#{c.comment}"/><br/>
+					<h:outputText value="Submitted on #{c.date} by #{c.user}"/><br/>
+					<h:commandLink>					
+					<h:outputText value="#{c.commentcount} subcomments"/>
+					<f:ajax event="click" listener="#{c.changeShowcomments}" render=":outerloop:showcom:innerloop:subcomments"></f:ajax>
+					</h:commandLink>		
+				</div>	
+				
+				<h:panelGroup layout="block" id="subcomments">
+				<h:panelGroup layout="block" id="ssubcomments" rendered="#{c.showcomments}">
+				<ui:include src="./subcomment.xhtml" />
+				</h:panelGroup>
+				</h:panelGroup>
+						
+			</ui:repeat>
+			</ul>
+			
+
+															
+		</div>
+		</h:form>
+				
+	</h:panelGroup>
+	</h:panelGroup>
+</body>
+</html>
